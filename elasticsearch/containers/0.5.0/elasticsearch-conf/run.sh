@@ -14,4 +14,14 @@ if [ -f "$PLUGIN_TXT" ]; then
     done
 fi
 
+# plugins are space separated, example: PLUGINS=mobz/elasticsearch-head appbaseio/dejavu cloud-aws
+if [ -n "$PLUGINS" ] ; then
+	$PLUGINZ=(${PLUGINS})
+
+	for plugin in "${PLUGINZ[@]}"; do
+		/usr/share/elasticsearch/bin/plugin install $plugin
+	done
+fi
+
+
 exec /docker-entrypoint.sh elasticsearch
