@@ -1,7 +1,7 @@
-FROM nginx:1.9.4
+FROM nginx:1.11.10
 
 # upgrade
-RUN apt-get update && \
+RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends python-pip curl && \
     rm -rf /var/lib/apt/lists/* && \

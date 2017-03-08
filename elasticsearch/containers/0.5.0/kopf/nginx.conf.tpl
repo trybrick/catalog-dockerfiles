@@ -4,7 +4,7 @@ worker_processes 4;
 pid /run/nginx.pid;
 
 events {
-  worker_connections 1024;
+  worker_connections 8192;
 }
 
 http {
@@ -69,6 +69,7 @@ http {
     }
 
     location /kopf/ {
+      rewrite ^/kopf/(.*)$ /$1 break;
       root /kopf/_site;
     }
 
