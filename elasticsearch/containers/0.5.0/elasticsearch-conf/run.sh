@@ -19,8 +19,10 @@ if [ -n "$PLUGINS" ] ; then
 	PLUGINZ=(${PLUGINS})
 
 	for plugin in "${PLUGINZ[@]}"; do
+		pluginpath=${plugin##*/}
+		pluginpath="${pluginpath/elasticsearch-/}"
 
-		if [ ! -d "/usr/share/elasticsearch/plugins/$plugin" ] ; then
+		if [ ! -d "/usr/share/elasticsearch/plugins/$pluginpath" ] ; then
 			/usr/share/elasticsearch/bin/plugin install $plugin
 		fi
 	done

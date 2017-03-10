@@ -67,15 +67,5 @@ http {
     location / {
       proxy_pass http://es;
     }
-
-    location /kopf/ {
-      rewrite ^/kopf/(.*)$ /$1 break;
-      root /kopf/_site;
-    }
-
-    location /es/ {
-      rewrite ^/es/(.*)$ /$1 break;
-      proxy_pass http://es;
-    }
   }
 }
