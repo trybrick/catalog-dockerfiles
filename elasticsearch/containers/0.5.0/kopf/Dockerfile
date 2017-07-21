@@ -1,4 +1,4 @@
-FROM nginx:1.11.10
+FROM nginx:1.13.3
 
 # upgrade
 RUN apt-get update -y && \
@@ -14,7 +14,7 @@ ADD nginx.conf.tpl /etc/nginx/nginx.conf.tpl
 ADD ./run.sh ./run.sh
 
 # kopf
-ENV KOPF_VERSION 1.5.7
+ENV KOPF_VERSION 2.1.1
 RUN curl -s -L "https://github.com/lmenezes/elasticsearch-kopf/archive/v${KOPF_VERSION}.tar.gz" | \
     tar xz -C /tmp && mv "/tmp/elasticsearch-kopf-${KOPF_VERSION}" /kopf
 
