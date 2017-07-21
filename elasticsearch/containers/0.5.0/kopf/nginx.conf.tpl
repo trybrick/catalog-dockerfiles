@@ -87,5 +87,9 @@ http {
     location / {
       proxy_pass http://es;
     }
+
+    location /_plugin {
+      proxy_pass http://es/_plugin;
+    }
   }
 }
