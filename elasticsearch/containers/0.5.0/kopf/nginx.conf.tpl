@@ -85,11 +85,15 @@ http {
     expires -1;
 
     location / {
-      proxy_pass http://es;
+      root /kopf/_site
     }
 
-    location /_plugin {
-      proxy_pass http://es/_plugin;
+    location /es/ {
+      proxy_pass http://es/;
+    }
+
+    location /_plugin/ {
+      proxy_pass http://es/_plugin/;
     }
   }
 }
