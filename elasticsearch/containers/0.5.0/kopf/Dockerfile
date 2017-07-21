@@ -3,8 +3,9 @@ FROM nginx:1.13.3
 # upgrade
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends python-pip curl && \
+    apt-get install -y --no-install-recommends python-pip curl nano && \
     rm -rf /var/lib/apt/lists/* && \
+    pip install -U pip setuptools wheel && \
     pip install envtpl
 
 # nginx
