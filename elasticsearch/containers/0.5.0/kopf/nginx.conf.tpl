@@ -8,17 +8,37 @@ events {
 }
 
 http {
-  sendfile on;
-  tcp_nopush on;
-  tcp_nodelay on;
-  keepalive_timeout 65;
-  types_hash_max_size 2048;
+  sendfile                        on;
+  tcp_nopush                      on;
+  tcp_nodelay                     on;
+  client_header_timeout           1m;
+  client_body_timeout             1m;
+  client_header_buffer_size       2k;
+  client_body_buffer_size         256k;
+  client_max_body_size            256m;
+  large_client_header_buffers     4   8k;
+  send_timeout                    30;
+  keepalive_timeout               60 60;
+  reset_timedout_connection       on;
+  server_tokens                   off;
+  server_name_in_redirect         off;
+  server_names_hash_max_size      512;
+  server_names_hash_bucket_size   512;
 
   include /etc/nginx/mime.types;
   default_type application/octet-stream;
 
   access_log /dev/stdout;
   error_log /dev/stderr;
+
+  # Compression settings - aggressively cache text file types
+  gzip                            on;
+  gzip_comp_level                 9;
+  gzip_min_length                 512;
+  gzip_buffers                    8 64k;
+  gzip_types                      text/plain text/css text/javascript text/js text/xml application/json application/javascript application/x-javascript application/xml application/xml+rss application/x-font-ttf image/svg+xml font/opentype;
+  gzip_proxied                    any;
+  gzip_disable "MSIE [1-6]\.";
 
   upstream es {
     {% for server in KOPF_ES_SERVERS.split(",") %}
