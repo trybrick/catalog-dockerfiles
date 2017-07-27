@@ -85,7 +85,7 @@ http {
     expires -1;
 
     location / {
-      root /kopf/_site
+      root /kopf/_site;
     }
 
     location /es/ {
