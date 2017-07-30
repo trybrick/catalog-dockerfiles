@@ -12,12 +12,12 @@ http {
   tcp_nopush                      on;
   tcp_nodelay                     on;
   client_header_timeout           1m;
-  client_body_timeout             1m;
+  client_body_timeout             5m;
   client_header_buffer_size       2k;
   client_body_buffer_size         256k;
   client_max_body_size            256m;
   large_client_header_buffers     4   8k;
-  send_timeout                    30;
+  send_timeout                    60;
   keepalive_timeout               60 60;
   reset_timedout_connection       on;
   server_tokens                   off;
@@ -85,15 +85,11 @@ http {
     expires -1;
 
     location / {
-      root /kopf/_site;
+      proxy_pass http://es;
     }
 
-    location /es/ {
-      proxy_pass http://es/;
-    }
-
-    location /_plugin/ {
-      proxy_pass http://es/_plugin/;
+    location /kopf {
+      alias /kopf/_site/;
     }
   }
 }
